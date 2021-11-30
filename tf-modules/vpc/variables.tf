@@ -11,7 +11,7 @@ variable "vpc_cidr" {
 }
 
 variable "subnet_cidr" {
-  description = "The CIDR block for the subnet"
-  type    = string
-  default = "172.16.1.0/24"
+  description = "The CIDR block for the subnet. Must be in VPC range"
+  type        = string
+  default     = "172.16.1.0/24"
 }

@@ -27,23 +27,22 @@ resource "aws_instance" "main" {
     Name = "${var.name_prefix}-main"
   }
   lifecycle {
-    ignore_changes = ["ami"]
+    ignore_changes = [ami]
   }
 }
 
 resource "aws_eip" "ec2" {
 
-  count = var.attach_eip ? 1 : 0  
+  count = var.attach_eip ? 1 : 0
 
   vpc = true
 
-  instance   = var.instance_id
+  instance = aws_instance.main.id
   tags = {
     Name = "${var.name_prefix}-eip"
   }
 
 }
-# https://github.com/hashicorp/terraform/issues/23222#issuecomment-547462883
 
 
 
@@ -51,25 +50,25 @@ resource "aws_security_group" "ec2" {
   description = "Security Group for EC2 Instances."
   vpc_id      = var.vpc_id
   ingress {
-    description     = "Allowing SSH connections from authorised CIDRs"
-    from_port       = 22
-    to_port         = 22
-    protocol        = "tcp"
-    security_groups = [var.ssh_authorized_cidr_blocks]
+    description = "Allowing SSH connections from authorised CIDRs"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.ssh_authorized_cidr_blocks
   }
   ingress {
-    description     = "Allowing HTTP connections from authorised CIDRs"
-    from_port       = 80
-    to_port         = 80
-    protocol        = "tcp"
-    security_groups = [var.https_authorized_cidr_blocks]
+    description = "Allowing HTTP connections from authorised CIDRs"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = var.https_authorized_cidr_blocks
   }
   ingress {
-    description     = "Allowing HTTPS connections from authorised CIDRs"
-    from_port       = 443
-    to_port         = 443
-    protocol        = "tcp"
-    security_groups = [var.https_authorized_cidr_blocks]
+    description = "Allowing HTTPS connections from authorised CIDRs"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = var.https_authorized_cidr_blocks
   }
   egress {
     description = "Allowing egress traffic"

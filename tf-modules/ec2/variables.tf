@@ -15,6 +15,11 @@ variable "attach_eip" {
   type        = bool
 }
 
+variable "private_ip" {
+  description = "Instance private ip. Must be unique in subnet range"
+  type        = string
+}
+
 
 variable "key_name" {
   description = "Name of SSH public key"
