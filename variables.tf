@@ -49,13 +49,13 @@ variable "runner_private_ip" {
 variable "host_instance_type" {
   description = "Gitlab host instance class"
   type        = string
-  default     = "t3a.medium"
+  default     = "t3.medium"
 }
 
 variable "runner_instance_type" {
   description = "Gitlab runner instance class"
   type        = string
-  default     = "t3a.medium"
+  default     = "t3.micro"
 }
 
 

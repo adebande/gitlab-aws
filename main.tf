@@ -23,7 +23,7 @@ module "key_pair" {
   name_prefix = var.name_prefix
 }
 
-module "gitlab-host-instance" {
+module "gitlab_host_instance" {
   source = "./tf-modules/ec2"
 
   name_prefix = var.name_prefix
@@ -37,7 +37,7 @@ module "gitlab-host-instance" {
 
 }
 
-module "gitlab-runner-instance" {
+module "gitlab_runner_instance" {
   source = "./tf-modules/ec2"
 
   name_prefix = var.name_prefix
@@ -47,6 +47,6 @@ module "gitlab-runner-instance" {
   vpc_id        = module.vpc.vpc_id
   subnet_id     = module.vpc.subnet_id
   private_ip    = var.host_private_ip
-  attach_eip    = false
+  attach_eip    = true
 
 }
